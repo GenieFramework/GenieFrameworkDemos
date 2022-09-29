@@ -1,3 +1,4 @@
 [deps]
 Faker = "0efc519c-db33-5916-ab87-703215c3906f"
 GenieFramework = "a59fdf5c-6bf0-4f5d-949c-a137c9e2f353"
+Stipple = "4acbeb90-81a0-11ea-1966-bdaff8155998"

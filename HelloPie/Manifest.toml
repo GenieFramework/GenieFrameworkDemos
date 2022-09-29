@@ -2,7 +2,7 @@
 
 julia_version = "1.8.1"
 manifest_format = "2.0"
-project_hash = "27ff93acabf06663b7a80d2ca7bf46338e197836"
+project_hash = "82d46b89d0120270f777bb60b21c62a405e15378"
 
 [[deps.ArgParse]]
 deps = ["Logging", "TextWrap"]
@@ -527,9 +527,9 @@ uuid = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
 [[deps.Stipple]]
 deps = ["FilePathsBase", "Genie", "GenieSession", "GenieSessionFileSession", "JSON3", "Logging", "MacroTools", "Mixers", "Observables", "OrderedCollections", "Parameters", "Pkg", "Random", "Reexport", "Requires", "StructTypes"]
-git-tree-sha1 = "c3fbb1a2a64c26d656ae63e439d8704cd12c4357"
+path = "/Users/adrian/.julia/dev/Stipple"
 uuid = "4acbeb90-81a0-11ea-1966-bdaff8155998"
-version = "0.25.4"
+version = "0.25.6"
 
 [[deps.StipplePlotly]]
 deps = ["DataFrames", "Genie", "Requires", "Stipple"]
