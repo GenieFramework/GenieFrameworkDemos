@@ -1,5 +1,6 @@
 using Genie.Server
 using Stipple
+using Stipple.ModelStorage.Sessions
 using StippleUI
 using StipplePlotly
 
@@ -21,7 +22,7 @@ data = DataFrames.insertcols!(dataset("datasets", "iris"), :Cluster => zeros(Int
   iris_plot_data::R{Vector{PlotData}} = []
   cluster_plot_data::R{Vector{PlotData}} = []
   no_of_clusters::R{Int} = 3
-  no_of_iterations::R{Int} = 10
+  no_of_iterations::R{Int} = 100
 end
 
 function plot_data(cluster_column::Symbol, ic_model::IrisModel)
