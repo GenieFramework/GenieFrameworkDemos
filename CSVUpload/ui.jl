@@ -2,7 +2,7 @@
     heading("{{title}}")
     row([
         cell(class="col-md-12", [
-            uploader(label="Upload Dataset", :auto__upload, :multiple, accept=".csv", method="POST", url="http://localhost:8000/", field__name="csv_file")
+            uploader(label="Upload Dataset", :auto__upload, :multiple, method="POST", url="http://localhost:8000/", field__name="csv_file")
         ])
     ])
     row([
