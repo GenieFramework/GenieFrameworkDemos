@@ -1,0 +1,6 @@
+env: ENV["GENIE_ENV"]
+
+dev:
+  adapter: SQLite
+  database: db/houses.sqlite
+  config:
