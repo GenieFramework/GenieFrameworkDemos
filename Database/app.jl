@@ -28,7 +28,7 @@ function ui()
         card( style="width:1200px;margin-left:auto;margin-right:auto",
         [
                 h2("Boston house prices", style="text-align:center")
-                cell(btn("Predict!", color="red", @click("idx=idx+1"), style="margin-left:auto;margin-right:auto"))
+                btn("Predict!", color="red", @click("idx=idx+1"), style="display:block;margin:auto")
                 bignumber("Predicted price", R"y")
                 bignumber("Feature vector", R"x")
             ])
