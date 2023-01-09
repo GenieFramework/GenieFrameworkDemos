@@ -7,6 +7,7 @@ function up()
     [
             pk()
             columns([
+                :house_id => :int,
                 :price => :float,
                 :error => :float,
                 :timestamp => :string,
