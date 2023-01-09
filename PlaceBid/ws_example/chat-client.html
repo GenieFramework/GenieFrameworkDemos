@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Websockets client</title>
+    <style>
+        .sent {
+            color: blue;
+        }
+        .received {
+            color: green;
+        }
+        #chat {
+          position:fixed;
+          bottom:0;
+          height:50px;
+          width:100%;          
+          background:#333;
+          display: none;
+        }  
+    </style>
+</head>
+<body>
+<span id="username"></span>
+<div id="content">
+</div>
+<div id="welcome">
+    <h1>Select a userinput</h1>
+    <form id="pick_username">
+        <input class="userinput" name="userinput" type="text" value="" />
+        <input type="submit" value="Enter Chat" />
+    </form>
+</div>
+<div id="chat">
+  <form id="say_message">
+      <input name="say" type="text" value="" />
+      <input type="submit" value="say" />
+  </form>
+</div>
+
+
+<script type="text/javascript">
+
+    class SocketConnection {
+      constructor(onMessage) {
+        this.store = { connection: undefined, onMessage };
+      }
+      start() {
+        const {onMessage} = this.store;
+        let connection = new WebSocket('ws://'+window.location.host);
+        connection.onmessage = function( message ){
+            window.lastmessage = message;
+            onMessage(message.data)
+        }
+        this.store.connection = connection;
+      }
+      send(msg) {
+        const {connection} = this.store
+        connection.send(msg)
+      }
+    }
+    
+    let you = "you";
+    var $userForm  = document.querySelector("#pick_username");
+    var $chatForm  = document.querySelector("#say_message");
+    var $chatInput = $chatForm.querySelector("input[name=say]");
+
+    
+    function uuid4() {
+        return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        )
+    }
+    var id = uuid4();
+
+    function addContent(html) {
+      var $content   = document.querySelector("#content");
+      var div = document.createElement("div");
+      div.innerHTML = html;
+      $content.appendChild(div);
+    }
+    
+    function onMessageReceived(msg) {
+      addContent(`<p class='received'>${msg}</p>`)
+    }
+
+    function whenUserName() {
+      var $userInput = $userForm.querySelector("input[name=userinput]");
+      var $userName  = document.querySelector("#username");
+      var $welcome = document.querySelector("#welcome");
+      var $chat = document.querySelector("#chat");
+
+      var uname = $userInput.value;
+      if( !uname.replace(/\s/gi,'').length ) {
+        alert("Please select a valid userinput");
+      }  else {
+        var msg = {
+          "id": id,
+          "userName": uname
+        };
+        connection.send(JSON.stringify(msg));
+        $userName.innerHTML    = uname;
+        $welcome.style.display = "none";
+        $chat.style.display    = "block";
+      }
+    }
+    
+    function whenChatMessage() {
+      var content = $chatInput.value;
+      if( !content.replace(/\s/gi,'').length) {  
+         /* nothing to do */
+      } else {
+        var msg = {
+          "id": id,
+          "say": content
+        };
+        connection.send(JSON.stringify(msg));
+        addContent(`<p class='sent'>${you}: ${content}</p>`);
+        $chatInput.focus();
+      }
+    }
+    
+    $chatForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      whenChatMessage();
+      return false;
+    })
+      
+    $userForm.addEventListener("submit", function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        whenUserName();
+        return false;
+    });
+
+    const connection = new SocketConnection(onMessageReceived);
+    connection.start();
+
+</script>
+</body>
+</html>
