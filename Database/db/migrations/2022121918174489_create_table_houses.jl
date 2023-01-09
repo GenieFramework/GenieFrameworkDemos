@@ -22,8 +22,6 @@ function up()
                 :B => :float,
                 :LSTAT => :float,
                 :MEDV => :float,
-
-
             ])
         ]
     end
@@ -34,3 +32,4 @@ function down()
 end
 
 end
+

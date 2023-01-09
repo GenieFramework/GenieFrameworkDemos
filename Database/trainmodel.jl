@@ -1,10 +1,9 @@
-using RDatasets, DataFrames, Flux
+using RDatasets, DataFrames, Flux, Random
 using MLDatasets: BostonHousing
 using BSON: @save, @load
 using Flux: @epochs
 
 Random.seed!(1)
-# data = BostonHousing().dataframe
 features = BostonHousing.features()
 target = BostonHousing.targets()
 N_train = 350
