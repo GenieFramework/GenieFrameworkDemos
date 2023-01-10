@@ -16,13 +16,14 @@ y_train = target[:,train_idx]
 y_test = target[:,test_idx]
 
 model = Chain(Dense(13,64,relu), Dense(64,32,relu), Dense(32,16,relu), Dense(16,1,relu))
-opt = ADAM()
 
 loss(x, y) = Flux.Losses.mse(model(x), y)
 loss(x_train,y_train)
+
 data = [(x_train,y_train)]
 parameters = Flux.params(model)
-@epochs 3000 Flux.train!(loss, parameters, data, opt)
+
+@epochs 3000 Flux.train!(loss, parameters, data, ADAM())
 @show loss(x_train, y_train)
 @show loss(x_test,y_test)
 @save "bostonflux.bson" model x_test y_test
