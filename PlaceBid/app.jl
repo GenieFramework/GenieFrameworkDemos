@@ -14,8 +14,11 @@ function ui()
     [
         card(
         [
-            h2("Online Bidding 24x7 🌐", class="q-mx-auto")
-            btn("place bid ⏳", color="red", @click("idx = true"),#= class="fixed-center"=#)
+            h1("Online Bidding 24x7 🌐", class="q-mx-auto")
+            h3("Select a range for your bet", [
+                slider(1:5:100)
+            ])
+            btn("place bid ⏳", color="red", class="float-right", @click("idx = true"))
         ])
     ]
 end

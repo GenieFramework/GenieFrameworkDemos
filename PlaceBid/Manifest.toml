@@ -1,8 +1,8 @@
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.8.4"
+julia_version = "1.8.5"
 manifest_format = "2.0"
-project_hash = "e5a86aa13fd242982edccacacbe8ccb83d2e5ab0"
+project_hash = "df2d5dd4ebb49aabce5dc787e1b3c0087e946f94"
 
 [[deps.ArgParse]]
 deps = ["Logging", "TextWrap"]
@@ -173,7 +173,7 @@ version = "0.5.1"
 
 [[deps.Genie]]
 deps = ["ArgParse", "Dates", "Distributed", "DotEnv", "EzXML", "FilePathsBase", "HTTP", "HttpCommon", "Inflector", "JSON3", "JuliaFormatter", "Logging", "LoggingExtras", "Markdown", "Millboard", "Nettle", "OrderedCollections", "Pkg", "REPL", "Random", "Reexport", "Revise", "SHA", "Serialization", "Sockets", "UUIDs", "Unicode", "YAML"]
-git-tree-sha1 = "4b132cd173525b1a4d84e349b8e189001a16a07c"
+path = "C:\\Users\\aryan\\.julia\\dev\\Genie"
 uuid = "c43c736e-a2d1-11e8-161f-af95117fbd1e"
 version = "5.13.0"
 
@@ -191,7 +191,7 @@ version = "2.0.0"
 
 [[deps.GenieFramework]]
 deps = ["GarishPrint", "Genie", "GenieAutoReload", "GenieDevTools", "GeniePackageManager", "Reexport", "Revise", "Stipple", "StipplePlotly", "StippleUI"]
-path = "/Users/abhi/.julia/dev/GenieFramework"
+path = "C:\\Users\\aryan\\.julia\\dev\\GenieFramework"
 uuid = "a59fdf5c-6bf0-4f5d-949c-a137c9e2f353"
 version = "1.7.0"
 
@@ -548,9 +548,9 @@ uuid = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
 [[deps.Stipple]]
 deps = ["Dates", "FilePathsBase", "Genie", "GenieSession", "GenieSessionFileSession", "JSON3", "Logging", "MacroTools", "Mixers", "Observables", "OrderedCollections", "Parameters", "Pkg", "Random", "Reexport", "Requires", "StructTypes"]
-path = "/Users/abhi/.julia/dev/Stipple"
+path = "C:\\Users\\aryan\\.julia\\dev\\Stipple"
 uuid = "4acbeb90-81a0-11ea-1966-bdaff8155998"
-version = "0.25.14"
+version = "0.25.15"
 
 [[deps.StipplePlotly]]
 deps = ["DataFrames", "Genie", "Requires", "Stipple"]
