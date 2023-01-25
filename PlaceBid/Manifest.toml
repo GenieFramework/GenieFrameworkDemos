@@ -2,7 +2,7 @@
 
 julia_version = "1.8.5"
 manifest_format = "2.0"
-project_hash = "df2d5dd4ebb49aabce5dc787e1b3c0087e946f94"
+project_hash = "68b8c4c9b37fb2c522faa7c26266e5c046fb1b9b"
 
 [[deps.ArgParse]]
 deps = ["Logging", "TextWrap"]
@@ -175,7 +175,7 @@ version = "0.5.1"
 deps = ["ArgParse", "Dates", "Distributed", "DotEnv", "EzXML", "FilePathsBase", "HTTP", "HttpCommon", "Inflector", "JSON3", "JuliaFormatter", "Logging", "LoggingExtras", "Markdown", "Millboard", "Nettle", "OrderedCollections", "Pkg", "REPL", "Random", "Reexport", "Revise", "SHA", "Serialization", "Sockets", "UUIDs", "Unicode", "YAML"]
 path = "C:\\Users\\aryan\\.julia\\dev\\Genie"
 uuid = "c43c736e-a2d1-11e8-161f-af95117fbd1e"
-version = "5.13.0"
+version = "5.13.1"
 
 [[deps.GenieAutoReload]]
 deps = ["Distributed", "Genie", "Logging", "Revise"]
@@ -550,7 +550,7 @@ uuid = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 deps = ["Dates", "FilePathsBase", "Genie", "GenieSession", "GenieSessionFileSession", "JSON3", "Logging", "MacroTools", "Mixers", "Observables", "OrderedCollections", "Parameters", "Pkg", "Random", "Reexport", "Requires", "StructTypes"]
 path = "C:\\Users\\aryan\\.julia\\dev\\Stipple"
 uuid = "4acbeb90-81a0-11ea-1966-bdaff8155998"
-version = "0.25.15"
+version = "0.25.16"
 
 [[deps.StipplePlotly]]
 deps = ["DataFrames", "Genie", "Requires", "Stipple"]

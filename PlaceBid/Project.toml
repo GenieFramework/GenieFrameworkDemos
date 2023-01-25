@@ -1,4 +1,5 @@
 [deps]
 Genie = "c43c736e-a2d1-11e8-161f-af95117fbd1e"
 GenieFramework = "a59fdf5c-6bf0-4f5d-949c-a137c9e2f353"
+Mixers = "2a8e4939-dab8-5edc-8f64-72a8776f13de"
 Stipple = "4acbeb90-81a0-11ea-1966-bdaff8155998"

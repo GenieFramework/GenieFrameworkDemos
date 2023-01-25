@@ -1,24 +1,19 @@
 using GenieFramework
 @genietools
 
-@handlers begin
-    @in idx = false
-
-    @onchange idx begin
-        @info "bid is placed"
-        idx[] = false
-    end
+@in idx = false
+@onbutton idx begin
+    @info "bid is placed"
 end
 
 function ui()
     [
-        card(
-        [
+        card([
             h1("Online Bidding 24x7 🌐", class="q-mx-auto")
             h3("Select a range for your bet", [
                 slider(1:5:100)
             ])
-            btn("place bid ⏳", color="red", class="float-right", @click("idx = true"))
+            btn("place bid ⏳", color="red", @click("idx = true"))
         ])
     ]
 end
