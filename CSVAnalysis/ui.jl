@@ -2,7 +2,8 @@
     heading("{{title}}")
     row([
         cell(class="col-md-12", [
-            uploader(label="Upload Dataset", accept=".csv", multiple=true, method="POST", url="http://localhost:8000/", field__name="csv_file")
+          uploader(label="Upload Dataset", accpt=".csv", multiple=true, method="POST", url="http://localhost:8000/", field__name="csv_file",
+          var"@uploaded"="handle_event('', 'updatefiles')")
         ])
     ])
     row([

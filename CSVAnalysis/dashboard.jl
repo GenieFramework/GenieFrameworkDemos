@@ -16,7 +16,15 @@ mkpath(FILE_PATH)
 @out columns = ["petal.length", "petal.width", "sepal.length", "sepal.width", "variety"]
 @out irisplot = PlotData()
 
-@handlers begin
+@app begin
+    @out title = "Limited Bandwidth Demo"
+    @out selected_file = "iris.csv"
+    @out selected_column = "petal.length"
+    @out upfiles = readdir(FILE_PATH)
+    @out columns = ["petal.length", "petal.width", "sepal.length", "sepal.width", "variety"]
+    @out irisplot = PlotData()
+    @out files_dirty = false
+
     @onchangeany isready, selected_file, selected_column begin
         upfiles = readdir(FILE_PATH)
         data = CSV.read(joinpath(FILE_PATH, selected_file), DataFrame)
@@ -28,6 +36,7 @@ mkpath(FILE_PATH)
     end
 end
 
+# upload post route
 route("/", method = POST) do
   files = Genie.Requests.filespayload()
   for f in files
@@ -40,6 +49,6 @@ route("/", method = POST) do
   return "Upload finished"
 end
 
-
+# app's homepage/route
 @page("/", "ui.jl")
 Server.isrunning() || Server.up()
