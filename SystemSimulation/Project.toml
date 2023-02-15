@@ -1,0 +1,4 @@
+[deps]
+DifferentialEquations = "0c46a032-eb83-5123-abaf-570d42b7fbaa"
+GenieFramework = "a59fdf5c-6bf0-4f5d-949c-a137c9e2f353"
+ModelingToolkit = "961ee093-0014-501f-94e3-6117800e7a78"
