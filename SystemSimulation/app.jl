@@ -22,60 +22,80 @@ function define_ODE()
     tspan = (0.0, 100.0)
     ODEProblem(sys, u0, tspan, p, jac = true)
 end
-    
+
 prob = define_ODE()
 integrator = DifferentialEquations.init(prob, Tsit5())
 
-p = @task 1+1
-schedule(p)
 
 @handlers begin
-    prob = define_ODE()
     p = @task 1+1
-    schedule(p)
-    @in t_step = 0.00
+    @in σ = 10
+    @in ρ = 28.0
+    @in β = 8 / 3
+    @in t_step = 0.1
     @in t_end = 10
     @in start = false
     @out solplot = PlotData()
-    u_x = []
-    u_y = []
+    u_x = [1,2,3]
+    u_y = [1,2,3]
     @onchange start begin
-        if istaskdone(p) == true || istaskstarted(p) == false
-            p = @task begin
-                @show p._state
-                l = 1
-                while integrator.sol.t[end] <= t_end
-                    sleep(0.2)
-                    solplot = PlotData(x = u_x, y = u_y, plot=StipplePlotly.Charts.PLOT_TYPE_LINE)
-                    step!(integrator, t_step, true)
-                    println(integrator.sol.t[end], ' ', l)
-                    append!(u_x, [u[1] for u in integrator.sol.u[l:end]][:])
-                    append!(u_y, [u[2] for u in integrator.sol.u[l:end]][:])
-                    l = length(integrator.sol.u)
+        println("pressed button!")
+        println(p)
+        if !istaskstarted(p) || istaskdone(p) 
+        p = @task begin
+                    l = 1
+                    while integrator.sol.t[end] <= t_end
+                        println(i)
+                        sleep(t_step)
+                        solplot = PlotData(x = u_x, y = u_y, plot=StipplePlotly.Charts.PLOT_TYPE_LINE)
+                        integrator.p[1] = σ
+                        integrator.p[2] = ρ
+                        integrator.p[3] = β
+                        step!(integrator, t_step, true)
+                        u_x = vcat(u_x, [u[1] for u in integrator.sol.u[l:end]][:])
+                        u_y = vcat(u_y, [u[2] for u in integrator.sol.u[l:end]][:])
+                        # this does not work, the loop stops
+                        # append!(u_x, [u[1] for u in integrator.sol.u[l:end]][:])
+                        # append!(u_y, [u[2] for u in integrator.sol.u[l:end]][:])
+                        l = length(integrator.sol.u)
+                    end
+                    DifferentialEquations.reinit!(integrator)
+                    u_x = []
+                    u_y = []
                 end
-                DifferentialEquations.reinit!(integrator)
-                u_x = []
-                u_y = []
-            end
-            println("aaa")
-            println(p._state)
-            schedule(p)
         end
+        #     println(p._state)
+        schedule(p)
     end
 end
 
 function ui()
-[
-        row([
-            cell(class="st-module", textfield("End time", :t_end))
-            cell(class="st-module", [
-                h6("Time step")
-                slider(0:0.1:1, :t_step ; label=true)
-            ])
-            button("Start!", @click("start = true"))
-        ])
-        row(plot(:solplot))
-        # btn("End simulation", color = "primary", icon = "mail", @click("DifferentialEquations.reinit!(integrator)"))
+    [
+     row([
+          cell(class="st-module", textfield("End time", :t_end))
+          cell(class="st-module", [
+                                   h6("sigma")
+                                   slider(1:2:20, :σ ; label=true)
+                                  ])
+          cell(class="st-module", [
+                                   h6("rho")
+                                   slider(10:2:40, :ρ ; label=true)
+                                  ])
+          cell(class="st-module", [
+                                   h6("beta")
+                                   slider(1:2:20, :β ; label=true)
+                                  ])
+          cell(class="st-module", [
+                                   h6("Time step")
+                                   slider(0:0.01:0.1, :t_step ; label=true)
+                                  ])
+           button("Start!", @click("start = !start"))
+         ])
+     row([
+         cell(class="st-module", plot(:solplot))
+         cell(class="st-module", "Lorenz equations")
+    ])
+     # btn("End simulation", color = "primary", icon = "mail", @click("DifferentialEquations.reinit!(integrator)"))
     ]
 end
 
