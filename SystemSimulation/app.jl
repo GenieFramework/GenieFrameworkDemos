@@ -32,31 +32,25 @@ integrator = DifferentialEquations.init(prob, Tsit5())
     @in σ = 10
     @in ρ = 28.0
     @in β = 8 / 3
-    @in t_step = 0.1
+    @in t_step = 0.03
     @in t_end = 10
     @in start = false
     @out solplot = PlotData()
-    u_x = [1,2,3]
-    u_y = [1,2,3]
+    u_x = []
+    u_y = []
     @onchange start begin
-        println("pressed button!")
-        println(p)
         if !istaskstarted(p) || istaskdone(p) 
         p = @task begin
                     l = 1
                     while integrator.sol.t[end] <= t_end
-                        println(i)
                         sleep(t_step)
                         solplot = PlotData(x = u_x, y = u_y, plot=StipplePlotly.Charts.PLOT_TYPE_LINE)
                         integrator.p[1] = σ
                         integrator.p[2] = ρ
                         integrator.p[3] = β
                         step!(integrator, t_step, true)
-                        u_x = vcat(u_x, [u[1] for u in integrator.sol.u[l:end]][:])
-                        u_y = vcat(u_y, [u[2] for u in integrator.sol.u[l:end]][:])
-                        # this does not work, the loop stops
-                        # append!(u_x, [u[1] for u in integrator.sol.u[l:end]][:])
-                        # append!(u_y, [u[2] for u in integrator.sol.u[l:end]][:])
+                        append!(u_x, [u[1] for u in integrator.sol.u[l:end]][:])
+                        append!(u_y, [u[2] for u in integrator.sol.u[l:end]][:])
                         l = length(integrator.sol.u)
                     end
                     DifferentialEquations.reinit!(integrator)
@@ -64,7 +58,6 @@ integrator = DifferentialEquations.init(prob, Tsit5())
                     u_y = []
                 end
         end
-        #     println(p._state)
         schedule(p)
     end
 end
@@ -95,9 +88,9 @@ function ui()
          cell(class="st-module", plot(:solplot))
          cell(class="st-module", "Lorenz equations")
     ])
-     # btn("End simulation", color = "primary", icon = "mail", @click("DifferentialEquations.reinit!(integrator)"))
     ]
 end
 
 @page("/", ui)
+@page("/", "app.jl.html")
 Server.isrunning() || Server.up()

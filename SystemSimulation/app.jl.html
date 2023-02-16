@@ -1,0 +1,10 @@
+
+<div class="row">
+    <div class="col col-12 col-sm st-module"><q-input label="End time" v-model="t_end"></q-input></div>
+    <div class="col col-12 col-sm st-module"><h6>sigma</h6><q-slider :min=1 v-model="σ" label :max=19 :step=2 ></q-slider></div>
+    <div class="col col-12 col-sm st-module"><h6>rho</h6><q-slider :min=10 v-model="ρ" label :max=40 :step=2 ></q-slider></div>
+    <div class="col col-12 col-sm st-module"><h6>beta</h6><q-slider :min=1 v-model="β" label :max=19 :step=2 ></q-slider></div>
+    <div class="col col-12 col-sm st-module"><h6>Time step</h6><q-slider :min=0.0 v-model="t_step" label :max=0.1 :step=0.01 ></q-slider></div><button v-on:click='start = !start'>Start!</button></div>
+<div class="row">
+    <div class="col col-12 col-sm st-module"><plotly :data="solplot" :layout="{}" :displaylogo="false"></plotly></div>
+    <div class="col col-12 col-sm st-module">Lorenz equations</div></div>
