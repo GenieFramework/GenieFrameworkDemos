@@ -1,5 +1,4 @@
-using GenieFramework
-using DifferentialEquations, ModelingToolkit
+using GenieFramework, StippleLatex, DifferentialEquations, ModelingToolkit
 @genietools 
 
 function define_ODE()
@@ -28,7 +27,7 @@ integrator = DifferentialEquations.init(prob, Tsit5())
 
 
 @handlers begin
-    p = @task 1+1
+    @private p = @task 1+1
     @in σ = 10
     @in ρ = 28.0
     @in β = 8 / 3
@@ -36,15 +35,18 @@ integrator = DifferentialEquations.init(prob, Tsit5())
     @in t_end = 10
     @in start = false
     @out solplot = PlotData()
-    u_x = []
-    u_y = []
+    @private u_x = []
+    @private u_y = []
     @onchange start begin
         if !istaskstarted(p) || istaskdone(p) 
+          DifferentialEquations.reinit!(integrator)
+          u_x = []
+          u_y = []
         p = @task begin
                     l = 1
                     while integrator.sol.t[end] <= t_end
                         sleep(t_step)
-                        solplot = PlotData(x = u_x, y = u_y, plot=StipplePlotly.Charts.PLOT_TYPE_LINE)
+                        solplot = PlotData(x = u_x, y = u_y, z=u_x, plot=StipplePlotly.Charts.PLOT_TYPE_LINE)
                         integrator.p[1] = σ
                         integrator.p[2] = ρ
                         integrator.p[3] = β
@@ -53,9 +55,6 @@ integrator = DifferentialEquations.init(prob, Tsit5())
                         append!(u_y, [u[2] for u in integrator.sol.u[l:end]][:])
                         l = length(integrator.sol.u)
                     end
-                    DifferentialEquations.reinit!(integrator)
-                    u_x = []
-                    u_y = []
                 end
         end
         schedule(p)
@@ -67,15 +66,15 @@ function ui()
      row([
           cell(class="st-module", textfield("End time", :t_end))
           cell(class="st-module", [
-                                   h6("sigma")
+                                   h6(latex"\sigma")
                                    slider(1:2:20, :σ ; label=true)
                                   ])
           cell(class="st-module", [
-                                   h6("rho")
+                                   h6(latex"\rho")
                                    slider(10:2:40, :ρ ; label=true)
                                   ])
           cell(class="st-module", [
-                                   h6("beta")
+                                   h6(latex"\beta")
                                    slider(1:2:20, :β ; label=true)
                                   ])
           cell(class="st-module", [
@@ -86,11 +85,13 @@ function ui()
          ])
      row([
          cell(class="st-module", plot(:solplot))
-         cell(class="st-module", "Lorenz equations")
+         cell(class="st-module", style="", [
+                                                        cell(style="font-size:20px;text-align:center;padding-top:50px", latex" \text{\large Lorenz equations} \\ \dot{x}  = \sigma(y-x) \\ \dot{y}  = \rho x - y - xz \\ \dot{z}  = -\beta z + xy "auto )
+                                                        cell(style="font-size:20px;padding-top:10px", "The Lorenz equations relate the properties of a two-dimensional fluid layer uniformly warmed from below and cooled from above. In particular, the equations describe the rate of change of three quantities with respect to time: $(latex("x")) is proportional to the rate of convection, $(latex("y")) to the horizontal temperature variation, and $(latex("z")) to the vertical temperature variation.")])
     ])
     ]
 end
 
 @page("/", ui)
-@page("/", "app.jl.html")
+# @page("/", "app.jl.html")
 Server.isrunning() || Server.up()
