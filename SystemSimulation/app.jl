@@ -31,6 +31,7 @@ integrator = DifferentialEquations.init(prob, Tsit5())
     @in σ = 10
     @in ρ = 28.0
     @in β = 8 / 3
+    @out t = 0.0
     @in t_step = 0.03
     @in t_end = 10
     @in start = false
@@ -38,24 +39,25 @@ integrator = DifferentialEquations.init(prob, Tsit5())
     @private u_x = []
     @private u_y = []
     @onchange start begin
-        if !istaskstarted(p) || istaskdone(p) 
-          DifferentialEquations.reinit!(integrator)
-          u_x = []
-          u_y = []
-        p = @task begin
-                    l = 1
-                    while integrator.sol.t[end] <= t_end
-                        sleep(t_step)
-                        solplot = PlotData(x = u_x, y = u_y, z=u_x, plot=StipplePlotly.Charts.PLOT_TYPE_LINE)
-                        integrator.p[1] = σ
-                        integrator.p[2] = ρ
-                        integrator.p[3] = β
-                        step!(integrator, t_step, true)
-                        append!(u_x, [u[1] for u in integrator.sol.u[l:end]][:])
-                        append!(u_y, [u[2] for u in integrator.sol.u[l:end]][:])
-                        l = length(integrator.sol.u)
-                    end
+        if !istaskstarted(p) || istaskdone(p)
+            DifferentialEquations.reinit!(integrator)
+            u_x = []
+            u_y = []
+            p = @task begin
+                while t <= t_end
+                    @show integrator.sol.t[end]
+                    sleep(t_step)
+                    solplot = PlotData(x = u_x, y = u_y, z=u_x, plot=StipplePlotly.Charts.PLOT_TYPE_LINE)
+                    integrator.p[1] = σ
+                    integrator.p[2] = ρ
+                    integrator.p[3] = β
+                    step!(integrator, t_step, true)
+                    l = length(integrator.sol.u)
+                    append!(u_x, [u[1] for u in integrator.sol.u[l:end]][:])
+                    append!(u_y, [u[2] for u in integrator.sol.u[l:end]][:])
+                    t = integrator.sol.t[end]
                 end
+            end
         end
         schedule(p)
     end
@@ -64,7 +66,11 @@ end
 function ui()
     [
      row([
-          cell(class="st-module", textfield("End time", :t_end))
+          cell(class="st-module", bignumber("Time", :t ) )
+          cell(class="st-module", [
+                                   h6("End time")
+                                   textfield("",:t_end)
+                                  ])
           cell(class="st-module", [
                                    h6(latex"\sigma")
                                    slider(1:2:20, :σ ; label=true)
@@ -81,14 +87,14 @@ function ui()
                                    h6("Time step")
                                    slider(0:0.01:0.1, :t_step ; label=true)
                                   ])
-           button("Start!", @click("start = !start"))
+          button("Start!", @click("start = !start"))
          ])
      row([
-         cell(class="st-module", plot(:solplot))
-         cell(class="st-module", style="", [
-                                                        cell(style="font-size:20px;text-align:center;padding-top:50px", latex" \text{\large Lorenz equations} \\ \dot{x}  = \sigma(y-x) \\ \dot{y}  = \rho x - y - xz \\ \dot{z}  = -\beta z + xy "auto )
-                                                        cell(style="font-size:20px;padding-top:10px", "The Lorenz equations relate the properties of a two-dimensional fluid layer uniformly warmed from below and cooled from above. In particular, the equations describe the rate of change of three quantities with respect to time: $(latex("x")) is proportional to the rate of convection, $(latex("y")) to the horizontal temperature variation, and $(latex("z")) to the vertical temperature variation.")])
-    ])
+          cell(class="st-module", plot(:solplot))
+          cell(class="st-module", style="", [
+                                             cell(style="font-size:20px;text-align:center;padding-top:50px", latex" \text{\large Lorenz equations} \\ \dot{x}  = \sigma(y-x) \\ \dot{y}  = \rho x - y - xz \\ \dot{z}  = -\beta z + xy "auto )
+                                             cell(style="font-size:20px;padding-top:10px", "The Lorenz equations relate the properties of a two-dimensional fluid layer uniformly warmed from below and cooled from above. In particular, the equations describe the rate of change of three quantities with respect to time: $(latex("x")) is proportional to the rate of convection, $(latex("y")) to the horizontal temperature variation, and $(latex("z")) to the vertical temperature variation.")])
+         ])
     ]
 end
 
