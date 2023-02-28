@@ -1,0 +1,30 @@
+<header class="st-header q-pa-sm">
+    <h1 class="st-header__title text-h3">Normal distribution statistics</h1>
+</header>
+<div class="row">
+    <div class="col col-6 col-sm">
+        <h3>Number of samples </h3>
+        <q-slider v-model="N" :min="0" :max="10000" :step="100" :label="true"></q-slider>
+    </div>
+    <div class="col col-6 col-sm">
+        <div class="row">
+            <div class="col col-4 col-sm">
+                <h3>Mean</h3>
+                <h4 v-text="m"></h4>
+            </div>
+            <div class="col col-4 col-sm">
+                <h3>St. dev.</h3>
+                <h4 v-text="s"></h4>
+            </div>
+            <div class="col col-4 col-sm">
+                <h3>Variance</h3>
+                <h4 v-text="v"></h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col col-12 col-sm">
+        <plotly :data="hist"></plotly>
+    </div>
+</div>
