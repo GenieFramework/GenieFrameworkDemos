@@ -1,3 +1,4 @@
+module App
 using StatsBase: mean, std, var
 using GenieFramework
 @genietools
@@ -6,7 +7,7 @@ function statistics(x)
   mean(x), std(x), var(x)
 end
 
-@handlers begin
+@app begin
   @out m::Float32 = 0.0
   @out s::Float32  = 0.0
   @out v::Float32  = 0.0
@@ -20,3 +21,4 @@ end
 end
 
 @page("/", "app.jl.html")
+end
