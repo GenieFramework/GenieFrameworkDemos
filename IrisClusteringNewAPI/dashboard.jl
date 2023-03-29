@@ -6,7 +6,7 @@ using GenieFramework
 @genietools
 
 const data = DataFrames.insertcols!(dataset("datasets", "iris"), :Cluster => zeros(Int, 150))
-@out const features = [:SepalLength, :SepalWidth, :PetalLength, :PetalWidth]
+const features = [:SepalLength, :SepalWidth, :PetalLength, :PetalWidth]
 
 function cluster(no_of_clusters = 3, no_of_iterations = 10)
   feats = Matrix(data[:, [c for c in features]])' |> collect
@@ -19,6 +19,7 @@ end
   @in no_of_iterations = 10
   @in xfeature = :SepalLength
   @in yfeature = :SepalWidth
+  @out features = [:SepalLength, :SepalWidth, :PetalLength, :PetalWidth]
   @out datatable = DataTable()
   @out datatablepagination = DataTablePagination(rows_per_page=50)
   @out irisplot = PlotData[]
