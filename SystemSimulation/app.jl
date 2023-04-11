@@ -1,3 +1,4 @@
+module App
 using GenieFramework, StippleLatex, DifferentialEquations, ModelingToolkit
 @genietools
 
@@ -30,11 +31,14 @@ integrator = DifferentialEquations.init(prob, Tsit5())
     @in σ = 10
     @in ρ = 28.0
     @in β = 8 / 3
-    @out t = 0.0
+    @out t::Float32 = 0.0
     @in t_step = 0.03
     @in t_end = 10
     @in start = false
     @out solplot = PlotData()
+    @out layout = PlotLayout(
+        xaxis=[PlotLayoutAxis(xy="x", title="x")],
+        yaxis=[PlotLayoutAxis(xy="y", title="y")])
     @private u_x = []
     @private u_y = []
     @private running = false
@@ -118,6 +122,7 @@ function ui()
     ]
 end
 
-@page("/", ui)
-# @page("/", "app.jl.html")
+#@page("/", ui)
+@page("/", "app.jl.html")
 Server.isrunning() || Server.up()
+end
