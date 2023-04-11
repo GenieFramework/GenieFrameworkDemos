@@ -1,0 +1,7 @@
+[deps]
+FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
+GenieFramework = "a59fdf5c-6bf0-4f5d-949c-a137c9e2f353"
+LibSndFile = "b13ce0c6-77b0-50c6-a2db-140568b8d1a5"
+Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"
+SampledSignals = "bd7594eb-a658-542f-9e75-4c4d8908c167"
+Whisper = "1846abd0-4e01-46c4-9113-916b63b070ed"
