@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-md-8">
+        <h1>Travelling salesman problem</h1> 
+        <plotly :data="data" :layout="appLayout" :displaylogo="false" class="sync_data"></plotly>
+        <div class="row">
+            <div class="col-md-6">
+                <q-btn color="primary" label="Reset" :loading="loading" @click="reset = !reset"></q-btn>
+                <span class="ml-2">Algorithm: {{ max_reached ? '2-opt heuristic' : 'linear programming' }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <p>
+            The travelling salesman problem (TSP) asks the following question: "Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city and returns to the origin city?" It is an NP-hard problem in combinatorial optimization, important in operations research and theoretical computer science.
+        </p>
+        <p>Instructions:
+            <ul>
+                <li>Click on the map to add a new route point.</li>
+                <li>Click on an existing point to remove it from the route.</li>
+                <li>Click the reset button to restore the route.</li>
+            </ul>
+        </p>
+    </div>
+</div>
