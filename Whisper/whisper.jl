@@ -5,8 +5,8 @@ using Whisper, LibSndFile, FileIO, SampledSignals
 function download_audio(video_url)
     isfile("audio.m4a") && `rm audio.m4a` |> run
     isfile("output.wav") && `rm output.wav` |> run
-    `youtube-dl --extract-audio --output "audio.m4a" $video_url` |> run
-    `ffmpeg -i audio.opus -acodec pcm_s16le -ar 16000 output.wav` |> run
+    `yt-dlp --extract-audio --output "audio.m4a" $video_url` |> run
+    `ffmpeg -i audio.m4a.opus -acodec pcm_s16le -ar 16000 output.wav` |> run
 end
 
 function whisper_transcribe()

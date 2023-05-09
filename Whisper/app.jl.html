@@ -1,4 +1,16 @@
-<q-input v-model="url"> </q-input>
-<q-btn v-on:click="process = !process"> Transcribe </q-btn>
-<h4> Transcription: </h4>
-<p v-text="transcription"> </p>
+<h2 style="text-align:center;">Youtube video transcriber</h2>
+<div style="display:flex; justify-content:center;">
+    <q-card style="width:500px;">
+        <q-input style="padding-left:20px;padding-right:20px; width:500px; text-align:center;" v-model="url"></q-input>
+        <div style="display:flex; justify-content:center; padding-top:10px; padding-bottom:10px;">
+            <q-btn color="secondary" label="Transcribe" :loading="transcribing" v-on:click="transcribe = !transcribe"></q-btn>
+            <q-btn style="margin-left:10px" color="secondary" label="Download" :loading="downloading" v-on:click="download = !download"></q-btn>
+        </div>
+    </q-card>
+</div>
+<div style="display:flex; justify-content:center; margin-top:20px;">
+    <q-card style="width:1000px; padding:20px; background-color:white;">
+        <h4>Transcription:</h4>
+        <p v-text="transcription">{{transcription}}</p>
+    </q-card>
+</div>
