@@ -1,24 +1,25 @@
-<div class="row">
-    <div class="col-md-8">
-        <h1>Travelling salesman problem</h1> 
-        <plotly :data="data" :layout="appLayout" :displaylogo="false" class="sync_data"></plotly>
-        <div class="row">
-            <div class="col-md-6">
-                <q-btn color="primary" label="Reset" :loading="loading" @click="reset = !reset"></q-btn>
-                <span class="ml-2">Algorithm: {{ max_reached ? '2-opt heuristic' : 'linear programming' }}</span>
-            </div>
-        </div>
+<div class="container">
+  <h1 class="my-4 text-center">Travelling Salesman Problem</h1>
+  <div class="row" style="background:white">
+    <div class="col-md-8" style="border:2px solid #e0e0e0;border-radius:5px">
+      <plotly :data="data" :layout="appLayout" :displaylogo="false" class="sync_data mb-4"></plotly>
+      <div class="text-center" style="margin-bottom:10px; margin-top:-10px">
+        <q-btn color="primary" style="margin-top:-50px;" label="Reset" :loading="loading" @click="reset = !reset"></q-btn>
+      </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" style="">
+      <div class="bg-light p-4 rounded" style="background:white;padding:10px;border:2px solid #e0e0e0;border-radius:5px">
         <p>
-            The travelling salesman problem (TSP) asks the following question: "Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city and returns to the origin city?" It is an NP-hard problem in combinatorial optimization, important in operations research and theoretical computer science.
+          The travelling salesman problem (TSP) asks the following question: "Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city and returns to the origin city?" It is an NP-hard problem in combinatorial optimization, important in operations research and theoretical computer science.
         </p>
-        <p>Instructions:
-            <ul>
-                <li>Click on the map to add a new route point.</li>
-                <li>Click on an existing point to remove it from the route.</li>
-                <li>Click the reset button to restore the route.</li>
-            </ul>
-        </p>
+        <h5>Instructions:</h5>
+        <ul>
+          <li>Click on the map to add a new route point.</li>
+          <li>Click on an existing point to remove it from the route.</li>
+          <li>Click the reset button to restore the route.</li>
+        </ul>
+        <span class="ml-2"><b>Algorithm in use:</b> {{ max_reached ? '2-opt heuristic' : 'linear programming' }}</span>
+      </div>
     </div>
+  </div>
 </div>

@@ -60,21 +60,31 @@ init_map = draw_map(cities, [1, 2, 3, 4, 5, 6])
 
 # Create the layout
 mylayout = PlotlyBase.Layout(
-    title="Connecting two points",
     geo=attr(
         projection=attr(type="natural earth"),
         showland=true, showcountries=true,
         landcolor="#EAEAAE", countrycolor="#444444"
-    )
+    ),
+    margin=attr(l=20, r=20, t=20, b=20),
+    width=800, height=800,
 )
 
 myconfig = PlotlyBase.PlotConfig()
 
 @app ARModel begin
     @out data = init_map
-    @out appLayout = mylayout
+    @out appLayout = PlotlyBase.Layout(
+        geo=attr(
+            projection=attr(type="natural earth"),
+            showland=true, showcountries=true,
+            landcolor="#EAEAAE", countrycolor="#444444"
+        ),
+        margin=attr(l=20, r=20, t=20, b=20),
+        autosize=true
+    )
+
     @out appConfig = myconfig
-    @private points = copy(cities)
+    @private points = deepcopy(cities)
     @in reset = false
     @out max_reached = false
     @out loading = false
@@ -129,7 +139,7 @@ myconfig = PlotlyBase.PlotConfig()
     end
 
     @onchange reset begin
-        points = copy(cities)
+        points = deepcopy(cities)
         data = init_map
     end
 
