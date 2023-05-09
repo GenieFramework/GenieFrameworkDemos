@@ -2,7 +2,7 @@
 
 Transcribe audio from Youtube videos using [Whisper.jl](https://github.com/aviks/Whisper.jl), a Julia package for Automatic Speech Recognition (ASR) that leverages OpenAI's Whisper model.
 
-![preview](preview.gif)
+![preview](preview2.gif)
 
 Requeriments:
 - `yt-dlp` for downloading and extracting the audio.
