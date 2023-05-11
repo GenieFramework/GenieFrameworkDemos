@@ -1,5 +1,8 @@
 [deps]
 GenieFramework = "a59fdf5c-6bf0-4f5d-949c-a137c9e2f353"
+MultivariateStats = "6f286f6a-111f-5878-ab1e-185364afe411"
+PlotlyBase = "a03496cd-edff-5a9b-9e67-9cda94a718b5"
 PlotlyJS = "f0f68f2c-4968-5e81-91da-67840de0976a"
+StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 TextEncodeBase = "f92c20c0-9f2a-4705-8116-881385faba05"
 Transformers = "21ca0261-441d-5938-ace7-c90938fde4d4"

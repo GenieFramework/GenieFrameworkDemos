@@ -1,0 +1,14 @@
+<div style="background:white">
+<div class="row" style="padding-top:20px">
+            <q-card style="margin:auto">
+        <plotly :data="hmap_data" :layout="hmap_layout" ></plotly>
+            </q-card>
+            <q-card style="margin:auto">
+        <plotly :data="scatter_data" :layout="scatter_layout"></plotly>
+            </q-card>
+</div>
+<q-card style="margin-top:30px;padding-left:20px">
+<q-input v-model="text" style=""> </q-input>
+<q-btn color="primary" style="margin-top:5px;margin-bottom:5px;" v-on:click="process = !process" :loading="processing" text-color="black" label="Process" />
+</q-card>
+</div>
